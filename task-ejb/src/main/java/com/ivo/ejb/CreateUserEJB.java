@@ -4,17 +4,18 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.ivo.ejb.entities.User;
+import com.ivo.ejb.entities.Employee;
+
 
 @Stateless
 public class CreateUserEJB {
 
-	@PersistenceContext(name="testPU")
+	@PersistenceContext(name = "task")
 	EntityManager em;
 
-	public void create(final String name) {
-		User user = new User();
-		user.setName(name);
-		em.persist(user);
+	public Employee create(Employee employee) {
+		if (employee == null) throw new IllegalArgumentException("employee cannot be null");
+		em.persist(employee);
+		return employee;
 	}
 }
