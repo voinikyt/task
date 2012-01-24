@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Hello JSF 2!</title>
+	<h:outputStylesheet name="main.css" library="css"/>
+</h:head>
+<h:body>
+	<div id="container">
+	       <p:layout style="min-width:1000px; min-height:600px;" id="layout">
+	       	<p:layoutUnit position="north" size="100"/>
+			<p:layoutUnit position="west" size="250"/>
+			<p:layoutUnit position="center" header="Create Task">
+				<h:form>
+					<h:panelGrid columns="2">
+						<h:outputLabel for="statusName" value="Status Name *" />
+						<p:inputText id="statusName" required="true"/>
+						<h:outputLabel for="statusDescription" value="Description *" />
+						<p:inputTextarea id="statusDescription"  style="width:500px;height:100px;" effectDuration="400" required="true" />
+					</h:panelGrid>
+				</h:form>
+			</p:layoutUnit>
+		</p:layout>
+	</div>
+</h:body>
+</html>

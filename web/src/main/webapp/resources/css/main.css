@@ -1,0 +1,15 @@
+body {
+    background: url("../resources/images/macback.png") repeat scroll 0 0 transparent;
+    font-family: geneva,arial,helvetica,sans-serif;
+    font-size: 80%;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+     margin: 0 auto;
+     text-align: left;
+     width: 1000px;
+     position: relative;
+     margin-top: 10px;
+}
