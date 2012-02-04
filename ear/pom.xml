@@ -31,7 +31,6 @@
 				<version>2.4.2</version>
 				<configuration>
 					<version>6</version>
-					<defaultLibBundleDir>lib</defaultLibBundleDir>
 				</configuration>
 			</plugin>
 		</plugins>
