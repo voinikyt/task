@@ -3,8 +3,6 @@ package com.ivo.ejb;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,7 +12,6 @@ import javax.persistence.Query;
 import com.ivo.ejb.entities.Task;
 
 @Stateless
-@DeclareRoles({"admin"})
 public class TaskEJB {
 
 	@PersistenceContext(name = "task")
@@ -23,7 +20,6 @@ public class TaskEJB {
 	@Resource
 	SessionContext sessionContext;
 
-	@RolesAllowed({"admin"})
 	public Task createTask(Task task) {
 		if (task == null) throw new IllegalArgumentException("You cannot create a null task");
 		em.persist(task);
