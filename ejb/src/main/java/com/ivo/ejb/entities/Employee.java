@@ -1,14 +1,10 @@
 package com.ivo.ejb.entities;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Employee {
@@ -19,9 +15,6 @@ public class Employee {
 
 	@Column(unique = true, nullable = false)
 	private String name;
-
-	@OneToMany(mappedBy = "executor", fetch = FetchType.EAGER)
-	private List<Task> tasks;
 
 	public Employee() {
 	}
@@ -49,14 +42,6 @@ public class Employee {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Task> getTasks() {
-		return tasks;
-	}
-
-	public void setTasks(List<Task> tasks) {
-		this.tasks = tasks;
 	}
 
 	@Override
@@ -92,7 +77,6 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", tasks=" + tasks
-				+ "]";
+		return "Employee [id=" + id + ", name=" + name + ", tasks=" +  "]";
 	}
 }

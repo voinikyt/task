@@ -48,7 +48,7 @@ public class WorkflowEJBTest {
 
 
 		Employee foundEmployee = employeeEJB.findByName(employee.getName());
-		assertTrue(foundEmployee.getTasks().size() == 1);
+		assertTrue(employeeEJB.getAllTaskList(foundEmployee.getId()).size() == 1);
 
 		taskEJB.removeTask(task.getId());
 		employeeEJB.remove(employee.getId());

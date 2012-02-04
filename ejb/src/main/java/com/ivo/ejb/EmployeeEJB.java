@@ -2,13 +2,13 @@ package com.ivo.ejb;
 
 import java.util.List;
 
-import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.ivo.ejb.entities.Employee;
+import com.ivo.ejb.entities.Task;
 
 
 @Stateless
@@ -24,7 +24,6 @@ public class EmployeeEJB {
 	}
 
     @SuppressWarnings("unchecked")
-	@PermitAll
     public List<Employee> getAll() {
         Query query = em.createQuery("SELECT e from Employee as e");
         return query.getResultList();
@@ -39,6 +38,22 @@ public class EmployeeEJB {
     public void remove(Long id) {
     	Employee managedEmployee = em.find(Employee.class, id);
 		em.remove(managedEmployee);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Task> getAllTaskList(Long employeeId) {
+    	Query query = em.createQuery("SELECT t from Task as t where t.executor.id = :employeeId");
+    	query.setParameter("employeeId", employeeId);
+    	return query.getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Task> getTaskList(final Long employeeId, final int firstResult, final int rowCount) {
+    	Query query = em.createQuery("SELECT t from Task as t where t.executor.id = :employeeId");
+    	query.setParameter("employeeId", employeeId);
+    	query.setFirstResult(firstResult);
+    	query.setMaxResults(rowCount);
+    	return query.getResultList();
     }
 
 }
