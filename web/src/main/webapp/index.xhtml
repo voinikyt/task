@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-	<title>Hello JSF 2!</title>
+	<title>#{app.helloTitle}</title>
 	<h:outputStylesheet name="main.css" library="css"/>
 </h:head>
 <h:body>
@@ -15,37 +15,34 @@
 	       <p:layout id="layout" fullPage="true">
 	       	<p:layoutUnit position="north" size="100"/>
 			<p:layoutUnit position="west" size="250"/>
-			<p:layoutUnit position="center" header="Create Task Status" resizable="tr">
+			<p:layoutUnit position="center" header="#{ts.panelTitle}" resizable="tr">
 				<h:form>
 					<p:panel id="panel">
 						<p:messages />
 						<h:panelGrid columns="3">
-							<h:outputLabel for="statusName" value="Status Name *" />
+							<h:outputLabel for="statusName" value="#{ts.statusName} *" />
 							<p:inputText value="#{status.taskStatus.name}" id="statusName" required="true"/>
 							<p:message for="statusName" />
-							<h:outputLabel for="statusDescription" value="Description *" />
-							<p:inputTextarea value="#{status.taskStatus.description}" id="statusDescription" style="width:400px;height:100px;" effectDuration="400" required="true"/>
+							<h:outputLabel for="statusDescription" value="#{ts.statusDescription} *" />
+							<p:inputTextarea value="#{status.taskStatus.description}" id="statusDescription" style="width:300px;height:50px;" effectDuration="400" required="true"/>
 							<p:message for="statusDescription" />
-							<h:outputLabel vale="Date" for="date"/>
-							<p:calendar id="date"/>
-							<h:message for="date"></h:message>
-							<p:commandButton value="Add" update="panel, all"  actionListener="#{status.create}" icon="ui-icon-plus"/>
+							<p:commandButton value="#{ts.addButton}" update="panel, all" actionListener="#{status.create}" icon="ui-icon-plus"/>
 						</h:panelGrid>
 					</p:panel>
 				</h:form>
 				<p:panel id="all">
 					<h:form>
-					    <p:dataTable var="stat" value="#{status.allStatuses}">
+					    <p:dataTable var="stat" value="#{status.allStatuses}" emptyMessage="#{dataTable.emptyTableMessage}">
 					        <p:column>
 					            <f:facet name="header">
-					                    Name
+					                    #{ts.columnName}
 					            </f:facet>
 					            <h:outputText value="#{stat.name}" />
 					        </p:column>
 
 					        <p:column>
 					            <f:facet name="header">
-					                    Description
+					                    #{ts.columnDescription}
 					            </f:facet>
 					            <h:outputText value="#{stat.description}" />
 					        </p:column>
