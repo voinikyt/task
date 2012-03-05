@@ -21,7 +21,7 @@ public class WorkflowEJBTest {
 	@Deployment
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap.create(JavaArchive.class, "test.jar").addPackages(true, EmployeeEJB.class.getPackage())
-				.addManifestResource("test-persistence.xml", "persistence.xml");
+				.addAsManifestResource("test-persistence.xml", "persistence.xml");
 	}
 
 	@EJB

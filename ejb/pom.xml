@@ -45,13 +45,13 @@
 		<dependency>
 			<groupId>org.jboss.arquillian</groupId>
 			<artifactId>arquillian-junit</artifactId>
-			<version>1.0.0.Alpha4</version>
+			<version>1.0.0.Alpha5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.arquillian.container</groupId>
 			<artifactId>arquillian-openejb-embedded-3.1</artifactId>
-			<version>1.0.0.Alpha4</version>
+			<version>1.0.0.Alpha5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -99,7 +99,20 @@
 			<name>Apache Snapshot Repository</name>
 			<url>http://repository.apache.org/snapshots</url>
 		</repository>
+		<repository>
+			<id>cuke</id>
+			<name>Apache Snapshot Repository</name>
+			<url>http://http://cukes.info/maven/</url>
+		</repository>		
 	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>cuke</id>
+			<name>Apache Snapshot Repository</name>
+			<url>http://http://cukes.info/maven/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<build>
 		<plugins>

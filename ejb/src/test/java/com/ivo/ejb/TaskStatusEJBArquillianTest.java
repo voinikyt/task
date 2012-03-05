@@ -26,7 +26,7 @@ public class TaskStatusEJBArquillianTest {
 
 	private static JavaArchive createDeploymentJAR() {
 		return ShrinkWrap.create(JavaArchive.class, "test.jar").addPackages(true, TaskStatusEJB.class.getPackage())
-				.addManifestResource("test-persistence.xml", "persistence.xml");
+				.addAsManifestResource("test-persistence.xml", "persistence.xml");
 	}
 
 	@EJB
