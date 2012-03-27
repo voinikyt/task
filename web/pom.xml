@@ -47,6 +47,16 @@
 			<version>2.1.6</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>black-tie</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>blitzer</artifactId>
+			<version>1.0.4</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
