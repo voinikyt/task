@@ -4,13 +4,9 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="task">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<jta-data-source>jdbc/__default</jta-data-source>
+		<jta-data-source>jdbc/taskDB</jta-data-source>
 		<class>com.ivo.ejb.entities.Employee</class>
 		<class>com.ivo.ejb.entities.Task</class>
 		<class>com.ivo.ejb.entities.TaskStatus</class>
-		<properties>
-			<property name="eclipselink.ddl-generation.output-mode" value="database"/>
-			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
-		</properties>
 	</persistence-unit>
 </persistence>

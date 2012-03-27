@@ -10,6 +10,7 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,12 @@ public class TaskStatusEJBArquillianTest {
 	@Before
 	public void assureEJBIsNotNull() {
 		assertNotNull(taskStatusEJB);
+		assertEquals(taskStatusEJB.getAllStatuses().size(), 0);
+	}
+	
+	@After
+	public void after() {
+		assertEquals(taskStatusEJB.getAllStatuses().size(), 0);
 	}
 
 	/*
@@ -115,6 +122,48 @@ public class TaskStatusEJBArquillianTest {
 		taskStatusEJB.addTaskStatus(creatStatus());
 		assertTrue(taskStatusEJB.getAllStatuses().size() == 1);
 		taskStatusEJB.removeTaskStatus(taskStatusEJB.getAllStatuses().get(0));
+	}
+	
+	@Test
+	public void updateTaskShouldFailWithNullParam() {
+		try {
+			taskStatusEJB.updateTaskStatus(null);
+			fail("TaskStatusEJB.updateTaskStatus should not accept null parameters");
+		} catch (Exception e) {
+			assertTrue(e.getCause() instanceof IllegalArgumentException);
+		}
+	}
+	
+	@Test
+	public void updateTaskStatus() {
+		TaskStatus taskStatus = new TaskStatus();
+		taskStatus.setName("Init");
+		taskStatus.setDescription("Init");
+		taskStatus = taskStatusEJB.addTaskStatus(taskStatus);		
+		
+		String name = "Update";
+		taskStatus.setName(name);
+		taskStatusEJB.updateTaskStatus(taskStatus);
+		
+		TaskStatus updated = taskStatusEJB.getAllStatuses().get(0);
+		assertEquals(updated.getName(), name);
+		assertEquals(taskStatus.getName(), updated.getName());
+		
+		taskStatusEJB.removeTaskStatus(taskStatus);		
+	}
+	
+	@Test
+	public void findByName() {
+		assertNull(taskStatusEJB.findByName("new"));
+		
+		TaskStatus taskStatus = new TaskStatus();
+		taskStatus.setName("new");
+		taskStatus.setDescription("new");
+		taskStatus = taskStatusEJB.addTaskStatus(taskStatus);		
+		
+		assertNotNull(taskStatusEJB.findByName("new"));
+		
+		taskStatusEJB.removeTaskStatus(taskStatus);
 	}
 
 	private TaskStatus creatStatus() {

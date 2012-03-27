@@ -42,8 +42,10 @@ public class WorkflowEJBTest {
 		task.setTitle("Should clean the kitchen!");
 		task.setDescription("Start from the dishes, then clean the floor");
 		task.setTaskStatus(taskStatus);
-		task.setAproved(true);
+		task.setApproved(true);
 		task.setExecutor(employee);
+		task.setNumber("Unique Number");
+		
 		taskEJB.createTask(task);
 
 

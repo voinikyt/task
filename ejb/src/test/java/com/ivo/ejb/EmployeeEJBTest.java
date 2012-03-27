@@ -67,7 +67,10 @@ public class EmployeeEJBTest {
 		Task task = new Task();
 		task.setDescription("Desc");
 		task.setTitle("Title");
-		task.setExecutor(employee);
+		task.setExecutor(employee);		
+		task.setTaskStatus(taskStatus);
+		task.setNumber("Uni");
+		
 		taskEJB.createTask(task);
 
 		assertEquals(employeeEJB.getAllTaskList(employee.getId()).size(), 1);
@@ -91,6 +94,8 @@ public class EmployeeEJBTest {
 			task.setDescription("Desc");
 			task.setTitle(taskTitlePrefix + i);
 			task.setExecutor(employee);
+			task.setTaskStatus(taskStatus);
+			task.setNumber("Uni" + i);
 			taskEJB.createTask(task);
 		}
 

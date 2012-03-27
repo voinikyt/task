@@ -1,141 +1,101 @@
 package com.ivo.ejb.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import java.io.Serializable;
+import javax.persistence.*;
 
+
+/**
+ * The persistent class for the task database table.
+ * 
+ */
 @Entity
-public class Task {
+@Table(name="task")
+public class Task implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@TableGenerator(name = "TASK_GEN", table = "PRIMARY_KEY_SEQUENCES", pkColumnName = "TABLE_NAME", valueColumnName = "CURRENT_PK_VALUE", pkColumnValue = "TASK")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TASK_GEN")	
 	private Long id;
 
-	@Column(nullable = false)
-	private String title;
+	private Boolean approved;
 
-	@Column(nullable = false)
-	@Lob
+	@Column(nullable=false, length=2147483647)
 	private String description;
 
-	@ManyToOne
+	@Column(nullable=false, length=20)
+	private String number;
+
+	@Column(nullable=false, length=200)
+	private String title;
+
+	//uni-directional many-to-one association to Employee
+    @ManyToOne
+	@JoinColumn(name="executor")
 	private Employee executor;
 
-	private Boolean aproved = true;
-
-	@ManyToOne
+	//uni-directional many-to-one association to TaskStatus
+    @ManyToOne
+	@JoinColumn(name="taskstatusid", nullable=false)
 	private TaskStatus taskStatus;
 
-	public Task() {
-	}
+    public Task() {
+    }
 
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public Boolean getApproved() {
+		return this.approved;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	public String getNumber() {
+		return this.number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public Employee getExecutor() {
-		return executor;
+		return this.executor;
 	}
 
 	public void setExecutor(Employee executor) {
 		this.executor = executor;
 	}
-
-	public Boolean getAproved() {
-		return aproved;
-	}
-
-	public void setAproved(Boolean aproved) {
-		this.aproved = aproved;
-	}
-
+	
 	public TaskStatus getTaskStatus() {
-		return taskStatus;
+		return this.taskStatus;
 	}
 
 	public void setTaskStatus(TaskStatus taskStatus) {
 		this.taskStatus = taskStatus;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((aproved == null) ? 0 : aproved.hashCode());
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((taskStatus == null) ? 0 : taskStatus.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Task other = (Task) obj;
-		if (aproved == null) {
-			if (other.aproved != null)
-				return false;
-		} else if (!aproved.equals(other.aproved))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (taskStatus == null) {
-			if (other.taskStatus != null)
-				return false;
-		} else if (!taskStatus.equals(other.taskStatus))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Task [id=" + id + ", title=" + title + ", description="
-				+ description + ", executor=" + executor + ", aproved="
-				+ aproved + ", taskStatus=" + taskStatus + "]";
-	}
+	
 }

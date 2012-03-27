@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.ivo.ejb.entities.Task;
+import com.ivo.ejb.entities.TaskStatus;
 
 @RunWith(Arquillian.class)
 public class TaskEJBTest {
@@ -30,34 +31,34 @@ public class TaskEJBTest {
 
 	@EJB
 	TaskEJB taskEJB;
+	
+	@EJB
+	TaskStatusEJB taskStatusEJB;
 
 	@Test
 	public void testCreationOfTask() throws NamingException {
 		loginAs("admin", "adminPassword");
 		Task task = new Task();
-		task.setAproved(true);
+		task.setApproved(true);
 		task.setDescription("Description");
-		task.setTitle("Title");
+		task.setTitle("Title");			
+		task.setTaskStatus(createTaskStatus());
+		task.setNumber("Unique Number");
 		taskEJB.createTask(task);
 		assertNotNull(task.getId());
 		assertTrue(taskEJB.getAll().size() == 1);
 		taskEJB.removeTask(task.getId());
+		taskStatusEJB.removeTaskStatus(task.getTaskStatus());
 		assertTrue(taskEJB.getAll().size() == 0);
 		logOut();
 	}
 
-	@Test
-	public void tets() throws NamingException {
-        loginAs("admin", "adminPassword");
-		Task task = new Task();
-		task.setAproved(true);
-		task.setDescription("Description");
-		task.setTitle("Title");
-		taskEJB.createTask(task);
-		assertNotNull(task.getId());
-		assertTrue(taskEJB.getAll().size() == 1);
-		taskEJB.removeTask(task.getId());
-		assertTrue(taskEJB.getAll().size() == 0);
+	private TaskStatus createTaskStatus() {
+		TaskStatus taskStatus = new TaskStatus();
+		taskStatus.setName("fake");
+		taskStatus.setDescription("fake");
+		taskStatusEJB.addTaskStatus(taskStatus);
+		return taskStatus;
 	}
 
 	private void loginAs(String userName, String password) throws NamingException {

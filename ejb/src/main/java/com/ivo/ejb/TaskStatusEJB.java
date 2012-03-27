@@ -31,6 +31,13 @@ public class TaskStatusEJB {
 		return taskStatus;
 	}
 
+	public void updateTaskStatus(TaskStatus taskStatus) {
+		if (taskStatus == null || taskStatus.getId() == null && taskStatus.getId() < 0) {
+			throw new IllegalArgumentException("TaskStatus is null or TaskStatus.id is null");
+		}
+		em.merge(taskStatus);
+	}
+
 	/**
 	 * Removes a TaskStatus object from the database
 	 * @param taskStatus
@@ -50,5 +57,14 @@ public class TaskStatusEJB {
 	public List<TaskStatus> getAllStatuses() {
 		Query query = em.createQuery("SELECT ts FROM TaskStatus as ts ORDER BY ts.name ");
 		return query.getResultList();
+	}
+	
+	public TaskStatus findByName(String name) {
+		Query query = em.createQuery("SELECT ts FROM TaskStatus as ts WHERE ts.name = :name");
+		query.setParameter("name", name);
+		List<TaskStatus> list = query.getResultList();
+		if (list.size() == 1)
+			return (TaskStatus) list.get(0);
+		return null;
 	}
 }
