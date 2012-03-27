@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+</h:head>
+<h:body>
+
+<ui:composition>
+	<p:dialog widgetVar="addDialog" header="Add New Task Status">				
+		<h:form>					  
+			<h:panelGrid columns="2">
+				<h:outputText value="Name"/> 
+				<p:inputText value="#{status.taskStatus.name}" style="width: 150px;"></p:inputText>
+				<h:outputText value="Description"/>
+				<p:inputTextarea value="#{status.taskStatus.description}" autoResize="false" style="width: 150px;"></p:inputTextarea>						
+				<p:commandButton value="Add" action="#{status.create}" update="all" onsuccess="addDialog.hide()"/>
+			</h:panelGrid>				
+		</h:form>				
+	</p:dialog>
+	<p:panel id="all" widgetVar="all">
+		<h:form id="tableForm">
+			<p:messages id="statusMessages" autoUpdate="true"></p:messages>
+			<p:dataTable var="stat" value="#{status.allStatuses}"
+				emptyMessage="#{dataTable.emptyTableMessage}" editable="true"
+				selectionMode="single" rowKey="#{stat.id}"
+				selection="#{status.taskStatus}">
+	
+				<p:ajax event="rowEdit" listener="#{status.update}" ></p:ajax>
+				<p:ajax event="rowSelect" listener="#{status.select}"></p:ajax>
+	
+				<p:column style="display: none">
+					<h:outputText value="#{stat.id}" />
+				</p:column>
+				<p:column headerText="#{ts.columnName}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{stat.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{stat.name}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{ts.columnDescription}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{stat.description}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputTextarea value="#{stat.description}" maxHeight="200" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>	
+				<p:column headerText="Options" style="width:50px">
+					<p:rowEditor />
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton id="addButton" value="Add" icon="ui-icon-plus" oncomplete="addDialog.show()" />
+				</f:facet>
+				<f:facet name="footer">
+					<p:commandButton id="deleteButton" value="Delete" icon="ui-icon-minus" actionListener="#{status.delete}" update="all"/>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</p:panel>		
+</ui:composition>
+
+</h:body>
+</html>

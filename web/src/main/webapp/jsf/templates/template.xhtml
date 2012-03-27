@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title><ui:insert name="title">#{app.helloTitle}</ui:insert></title>
+	<h:outputStylesheet name="main.css" library="css" />
+</h:head>
+<h:body>
+	<p:layout id="layout" fullPage="true">
+		<p:layoutUnit position="north" size="100">
+			<f:facet name="header">Oh</f:facet>
+			<ui:insert title="header">Default Header</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="250">
+			<ui:insert name="category">Default Categories</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="center" resizable="tr">
+			<ui:insert name="body">Default Body</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="south">
+			<ui:insert name="footer">Default Footer</ui:insert>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
