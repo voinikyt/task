@@ -20,6 +20,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.ocpsoft</groupId>
+			<artifactId>prettyfaces-jsf2</artifactId>
+			<version>3.3.3</version>
+		</dependency>
+		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>3.0.RC2</version>
@@ -64,6 +69,12 @@
 			<id>prime-repo</id>
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>prettyfaces-repo</id>
+			<name>Pretty Faces</name>
+			<url>http://ocpsoft.org/repository/com/ocpsoft</url>
 			<layout>default</layout>
 		</repository>
 	</repositories>
