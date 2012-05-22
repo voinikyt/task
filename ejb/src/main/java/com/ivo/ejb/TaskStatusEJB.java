@@ -59,6 +59,7 @@ public class TaskStatusEJB {
 		return query.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public TaskStatus findByName(String name) {
 		Query query = em.createQuery("SELECT ts FROM TaskStatus as ts WHERE ts.name = :name");
 		query.setParameter("name", name);
