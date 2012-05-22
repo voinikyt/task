@@ -9,11 +9,12 @@
 <h:head>	
 </h:head>
 <h:body>
-	<ui:composition template="/jsf/templates/template.xhtml">
+	<ui:composition template="/view/templates/template.xhtml">
 		<ui:define name="title">Home</ui:define>
 		<ui:define name="body">Body</ui:define>	
 		<ui:define name="category">		
-			<h:link value="Admin" outcome="admin"/>
+			<h:link value="Admin" outcome="/view/admin/admin.jsf" />
+			<h:inputSecret></h:inputSecret>
 		</ui:define>
 	</ui:composition>	
 </h:body>
