@@ -5,11 +5,3 @@ body {
     margin: 0;
     padding: 0;
 }
-
-#container {
-     margin: 0 auto;
-     text-align: left;
-     width: 1000px;
-     position: relative;
-     margin-top: 10px;
-}
