@@ -11,19 +11,19 @@
 <h:body>
 
 <ui:composition>
-	<p:dialog widgetVar="addDialog" header="Add New Task Status">				
-		<h:form>					  
+	<p:dialog widgetVar="addDialog" header="Add New Task Status">						
+		<h:form prependId="false">					  
 			<h:panelGrid columns="2">
 				<h:outputText value="Name"/> 
 				<p:inputText value="#{status.taskStatus.name}" style="width: 150px;"></p:inputText>
 				<h:outputText value="Description"/>
 				<p:inputTextarea value="#{status.taskStatus.description}" autoResize="false" style="width: 150px;"></p:inputTextarea>						
-				<p:commandButton value="Add" action="#{status.create}" update="all" onsuccess="addDialog.hide()"/>
+				<p:commandButton value="Add" action="#{status.create}" update="@all" onsuccess="addDialog.hide()"/>
 			</h:panelGrid>				
 		</h:form>				
 	</p:dialog>
 	<p:panel id="all" widgetVar="all">
-		<h:form id="tableForm">
+		<h:form id="tableForm" prependId="false">
 			<p:messages id="statusMessages" autoUpdate="true"></p:messages>
 			<p:dataTable var="stat" value="#{status.allStatuses}"
 				emptyMessage="#{dataTable.emptyTableMessage}" editable="true"
@@ -63,7 +63,7 @@
 					<p:commandButton id="addButton" value="Add" icon="ui-icon-plus" oncomplete="addDialog.show()" />
 				</f:facet>
 				<f:facet name="footer">
-					<p:commandButton id="deleteButton" value="Delete" icon="ui-icon-minus" actionListener="#{status.delete}" update="all"/>
+					<p:commandButton id="deleteButton" value="Delete" icon="ui-icon-minus" actionListener="#{status.delete}" update="@form"/>
 				</f:facet>
 			</p:dataTable>
 		</h:form>

@@ -5,3 +5,31 @@ body {
     margin: 0;
     padding: 0;
 }
+
+#menu {
+	position: absolute;
+	top: 25px;
+	right: 15px;
+	padding: 0;
+	height: 59px;
+	overflow: hidden;
+}
+
+#menu ul {
+	margin: 0;
+	list-style: none;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu li a {
+	display: block;
+	float: left;
+	height: 42px;
+	margin: 0;
+	padding: 10px 40px 0 40px;
+	text-decoration: none;
+	font-size: 20px;
+}

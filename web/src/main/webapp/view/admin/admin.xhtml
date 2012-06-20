@@ -13,7 +13,10 @@
 	<ui:composition template="/view/templates/template.xhtml">
 		<ui:define name="title">Admin</ui:define>
 		<ui:define name="body">
-			<ui:include src="/view/status/status.xhtml"></ui:include>			
+			<ui:include src="/view/status/status.xhtml"></ui:include>
+			<p:accordionPanel widgetVar="tasks">
+				<f:facet name="header">Oop</f:facet>
+			</p:accordionPanel>			
 		</ui:define>		
 	</ui:composition>	
 	
