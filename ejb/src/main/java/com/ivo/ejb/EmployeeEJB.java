@@ -15,7 +15,7 @@ import com.ivo.ejb.entities.Task;
 public class EmployeeEJB {
 
 	@PersistenceContext(name = "task")
-	EntityManager em;
+	private EntityManager em;
 
 	public Employee create(Employee employee) {
 		if (employee == null) throw new IllegalArgumentException("employee cannot be null");
