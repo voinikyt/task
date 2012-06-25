@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
-<h:head>
-	<title><ui:insert name="title">#{app.helloTitle}</ui:insert></title>
-	<h:outputStylesheet name="main.css" library="css" />
-	<script type="application/javascript">  
-		function draw() {  
-			var canvas = document.getElementById("canvas");  
-			var ctx = canvas.getContext("2d");  
-			ctx.translate(30, 50); 
-			ctx.save();
-			ctx.fillStyle = "rgba(0,0,0,1)";  
-			ctx.font = 'bold 32px "helvetica", sans-serif';
-			ctx.fillText('TASK SYSTEM', 0, 0);
-			ctx.restore();  
-			ctx.fillStyle = "rgba(101,54,54,0.4)"; 
-			ctx.font = 'italic bold 32px "helvetica", sans-serif';
-			ctx.setTransform(0, -1, -1, 0, 30, 52); 
-			ctx.rotate(270 * Math.PI / 180);  
-			ctx.fillText('TASK SYSTEM', 0, 0); //italic
-		}  
-	</script> 
-</h:head>
-<h:body  onload="draw()">
-	<p:layout id="layout" fullPage="true">
-		<p:layoutUnit position="north" >
-			<f:facet name="header">Oh</f:facet>
-			<ui:insert name="header">
-			 	<h:link outcome="/view/home.jsf"><canvas id="canvas" width="300" height="100"></canvas></h:link>
-			 	
-			 	<div id="menu" class="ui-widget">
-			 		<ul id="main">			 		
-			 			<li><h:form>
-			 			<h:commandLink action="#{user.logout}" style="background:url('../../resources/images/web-icons/PNG-48/Exit.png') no-repeat center left;">Logout</h:commandLink>
-			 			</h:form>
-			 			</li>
-			 		</ul>			 		
-			 	</div>			 	  
-			</ui:insert>
-		</p:layoutUnit>
-		<p:layoutUnit position="west" size="250">
-			<ui:insert name="category">Default Categories</ui:insert>
-		</p:layoutUnit>
-		<p:layoutUnit position="center" resizable="tr">
-			<ui:insert name="body">Default Body</ui:insert>
-		</p:layoutUnit>
-<!-- 		<p:layoutUnit position="south"> -->
-<!-- 			<ui:insert name="footer">Default Footer</ui:insert> -->
-<!-- 		</p:layoutUnit> -->
-	</p:layout>
-</h:body>
+    <h:head>
+        <title><ui:insert name="title">#{app.helloTitle}</ui:insert></title>
+        <h:outputStylesheet name="main.css" library="css" />
+        <script type="application/javascript">  
+            function draw() {  
+                var canvas = document.getElementById("canvas");  
+                var ctx = canvas.getContext("2d");  
+                ctx.translate(30, 50); 
+                ctx.save();
+                ctx.fillStyle = "rgba(0,0,0,1)";  
+                ctx.font = 'bold 32px "helvetica", sans-serif';
+                ctx.fillText('TASK SYSTEM', 0, 0);
+                ctx.restore();  
+                ctx.fillStyle = "rgba(101,54,54,0.4)"; 
+                ctx.font = 'italic bold 32px "helvetica", sans-serif';
+                ctx.setTransform(0, -1, -1, 0, 30, 52); 
+                ctx.rotate(270 * Math.PI / 180);  
+                ctx.fillText('TASK SYSTEM', 0, 0); //italic
+            }  
+        </script> 
+    </h:head>
+    <h:body  onload="draw()">        
+        <p:layout id="layout" fullPage="true">
+            <p:layoutUnit position="north" style="overflow-y: hidden">
+                <f:facet name="header">Oh</f:facet>
+                <ui:insert name="header">                    
+                    <h:link outcome="/view/home.jsf"><canvas id="canvas" width="300" height="90"></canvas></h:link>			 				 			 	                     
+                    <div id="search" class="ui-widget">
+                        <h:form>
+                            <h:panelGrid columns="2">
+                                <p:inputText value="#{user.user.userId}" style="width: 400px"/><h:link><h:graphicImage value="resources/images/web-icons/PNG-48/Search.png"/></h:link>
+                            </h:panelGrid>
+                        </h:form>
+                    </div>
+                    <div id="menu" class="ui-widget">
+                        <h:form>
+                            <ul id="main">
+                                <li class="current_page_item"><a href="#" style="background:url('resources/images/web-icons/PNG-48/Modify.png') no-repeat center left;">My Tasks</a></li>                                                        
+                                <li><a href="#" style="background:url('resources/images/web-icons/PNG-48/Line Chart.png') no-repeat center left;">My Progress</a></li>                                                        
+                                <li><a href="#" style="background:url('resources/images/web-icons/PNG-48/Comment.png') no-repeat center left;">My Comments</a></li>                                                        
+                                <li><h:commandLink action="#{user.logout}" style="background:url('resources/images/web-icons/PNG-48/Exit.png') no-repeat center left;">Logout</h:commandLink></li>                                                        
+                            </ul>
+                        </h:form>
+                    </div>
+                    <div id="userPanel">                        
+                        <h:graphicImage value="resources/images/user.png" width="60px;" height="80px" style="border-radius: 5px"/>
+                    </div>
+                </ui:insert>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" size="250">
+                <ui:insert name="category">Default Categories</ui:insert>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" resizable="tr">
+                <ui:insert name="body">Default Body</ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
 </html>
