@@ -6,7 +6,7 @@
 		<artifactId>task</artifactId>
 		<groupId>com.ivo.jee</groupId>
 		<version>1</version>
-		<relativePath>..</relativePath>
+		<!--<relativePath>..</relativePath>-->
 	</parent>
 
 	<artifactId>ear</artifactId>
@@ -14,6 +14,12 @@
 
 	<name>ear</name>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+	</properties>
+
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -28,11 +34,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
-				<version>2.4.2</version>
+				<version>2.6</version>
 				<configuration>
 					<version>6</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
 				</configuration>
-			</plugin>
+			  </plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -41,6 +48,12 @@
 			<artifactId>ejb</artifactId>
 			<version>1</version>
 			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.ivo.jee</groupId>
+			<artifactId>mobile</artifactId>
+			<version>1</version>
+			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>com.ivo.jee</groupId>
