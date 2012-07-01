@@ -4,16 +4,22 @@
   <module>
     <ejb>ejb-1.jar</ejb>
   </module>
-  <module>
+<!--  <module>
     <web>
       <web-uri>web-1.war</web-uri>
       <context-root>/web</context-root>
     </web>    
-  </module>
-  <module>
+  </module>-->
+<!--   <module>
     <web>
       <web-uri>mobile-1.war</web-uri>
       <context-root>/mobile</context-root>
+    </web>
+  </module>-->
+  <module>
+    <web>
+      <web-uri>admin-1.war</web-uri>
+      <context-root>/admin</context-root>
     </web>
   </module>
   <library-directory>lib</library-directory>
