@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="task">
-		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<jta-data-source>jdbc/taskDB</jta-data-source>
-		<class>com.ivo.ejb.entities.Employee</class>
-		<class>com.ivo.ejb.entities.Task</class>
-		<class>com.ivo.ejb.entities.TaskStatus</class>
-		<class>com.ivo.ejb.entities.Group</class>
-		<class>com.ivo.ejb.entities.GroupPK</class>
-		<class>com.ivo.ejb.entities.User</class>
-	</persistence-unit>
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="task">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/taskDB</jta-data-source>
+        <class>com.ivo.ejb.entities.Employee</class>
+        <class>com.ivo.ejb.entities.Task</class>
+        <class>com.ivo.ejb.entities.TaskStatus</class>		
+        <class>com.ivo.ejb.entities.Comment</class>
+        <class>com.ivo.ejb.entities.CommentedTask</class>
+        <class>com.ivo.ejb.entities.CommentedTaskPK</class>
+        <class>com.ivo.ejb.entities.TaskPriority</class>
+    </persistence-unit>
 </persistence>
