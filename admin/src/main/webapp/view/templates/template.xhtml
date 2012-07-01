@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title><ui:insert name="title">#{app.helloTitle}</ui:insert></title>
+        <h:outputStylesheet name="main.css" library="css" />
+        <h:outputScript name="users.js" library="javascript" />
+        <script type="application/javascript">  
+            function draw() {  
+                var canvas = document.getElementById("canvas");  
+                var ctx = canvas.getContext("2d");  
+                ctx.translate(30, 50); 
+                ctx.save();
+                ctx.fillStyle = "rgba(0,0,0,1)";  
+                ctx.font = 'bold 24px "helvetica", sans-serif';
+                ctx.fillText('ADMINISTRATION CONSOLE', 0, 0);
+                ctx.restore();  
+                ctx.fillStyle = "rgba(101,54,54,0.4)"; 
+                ctx.font = 'italic bold 24px "helvetica", sans-serif';
+                ctx.setTransform(0, -1, -1, 0, 30, 52); 
+                ctx.rotate(270 * Math.PI / 180);  
+                ctx.fillText('ADMINISTRATION CONSOLE', 0, 0); //italic
+            }  
+            
+            function hideForm() {
+                 $('#panelGrid').hide();
+                 $('#panelGrid').css('display', 'none');
+            }
+        </script> 
+    </h:head>    
+    <h:body  onload="draw()">        
+        <p:layout id="layout" fullPage="true">
+            <p:layoutUnit position="north" style="overflow-y: hidden">                
+                <ui:insert name="header">                    
+                    <h:link outcome="/view/home.jsf"><canvas id="canvas" width="500" height="90"></canvas></h:link>			 				 			 	                                        
+                    <div id="menu" class="ui-widget">
+                        <ui:insert name="menu">
+                            <ui:include src="menu.xhtml">
+                                <ui:param name="page" value="home"/>
+                            </ui:include>
+                        </ui:insert>                        
+                    </div>
+                    <div id="userPanel">                        
+                        <h:graphicImage value="/resources/images/user.png" width="60px;" height="80px" style="border-radius: 5px"/>
+                    </div>
+                </ui:insert>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" size="250">
+                <ui:insert name="category">Default Categories</ui:insert>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" resizable="tr">
+                <ui:insert name="body">Default Body</ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

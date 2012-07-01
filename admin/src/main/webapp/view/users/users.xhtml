@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        
+    </h:head>
+    <h:body>
+        <ui:composition template="./../templates/template.xhtml">
+
+            <ui:define name="title">
+                Manage Users
+            </ui:define>
+
+            <ui:define name="menu">
+                <ui:include src="./../templates/menu.xhtml">
+                    <ui:param name="page" value="users"/>
+                </ui:include>
+            </ui:define>
+
+            <ui:define name="category">
+                <ul style="list-style: none">
+                    <li>
+<!--                        <a href="#" onclick="$('#userFromPanel').show()" style="text-decoration: none"><h:graphicImage value="#{resource['images/web-icons/PNG-24:Add.png']}"/>Create</a>-->
+                        <button onclick="$('#userFromPanel').show()" style="background-color: none;">
+                            <h:graphicImage value="#{resource['images/web-icons/PNG-24:Add.png']}"/>Create
+                        </button>
+                    </li>
+                </ul>
+            </ui:define>
+
+            <ui:define name="body">                
+                <h:form prependId="false" enctype="multipart/form-data" id="usersForm">                      
+                    <p:panel id="userFromPanel" header="Create User" style="display: none;">  
+                        <p:panelGrid id="panelGrid">
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column colspan="3">Create New Users</p:column>
+                                </p:row>
+                            </f:facet>
+
+                            <p:row>
+                                <p:column><p:outputLabel for="account" value="Account: " /></p:column>                            
+                                <p:column><p:inputText id="account" value="#{usersController.employee.userName}" required="true"/></p:column>                                
+                            </p:row>
+
+                            <p:row>
+                                <p:column><p:outputLabel for="firstname" value="Firstname: " /></p:column> 
+                                <p:column><p:inputText id="firstname" value="#{usersController.employee.firstName}" required="true" /></p:column> 
+                            </p:row>
+
+                            <p:row>
+                                <p:column><p:outputLabel for="surname" value="Surname: " /></p:column> 
+                                <p:column><p:inputText id="surname" value="#{usersController.employee.lastName}" required="true" /></p:column> 
+                            </p:row>
+
+                            <p:row>
+                                <p:column><p:outputLabel for="email" value="Email: " /></p:column> 
+                                <p:column><p:inputText id="email" value="#{usersController.employee.email}" required="true"/></p:column> 
+                            </p:row>
+
+                            <p:row>
+                                <p:column><p:outputLabel for="password" value="Password: " /></p:column> 
+                                <p:column><p:password id="password" value="#{usersController.employee.password}" required="true" /></p:column>                         
+                            </p:row>
+
+                            <p:row>
+                                <p:column><p:outputLabel for="confirm" value="Confirm Password: " /></p:column> 
+                                <p:column><p:password id="confirm" value="#{usersController.confirmationPasswor}" required="true" /></p:column>                         
+                            </p:row>                                                
+
+                            <f:facet name="footer">
+                                <p:row>
+                                    <p:column colspan="3">                                        
+                                        <f:ajax onevent="hideForm" event="click">
+                                            <p:commandButton value="Save" oncomplete="handleCreateUserSubmit(xhr, status, args)" actionListener="#{usersController.save}" update=":allUsersForm:allUsers growl"/>     
+                                        </f:ajax>
+                                        <p:growl id="growl" showDetail="true" sticky="true" widgetVar="growl"/>
+                                    </p:column>                                
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>
+                <h:form id="allUsersForm" prependId="false">
+                    <p:panel header="All Users">                          
+                        <p:dataTable id="allUsers" var="user" value="#{usersController.allUsers}" style="width: 500px;" widgetVar="allUsers"  
+                                     rowKey="#{user.userName}" selectionMode="single">                              
+                             <p:column>  
+                                <f:facet name="header">  
+                                    Picture
+                                </f:facet>  
+                                 <c:if test="${empty user.pictureURL}">
+                                     <h:graphicImage value="#{resource['images/web-icons/PNG-32:Profile.png']}"/>
+                                </c:if>
+                            </p:column>                    
+                            <p:column>  
+                                <f:facet name="header">  
+                                    User Name  
+                                </f:facet>  
+                                <h:outputText value="#{user.userName}" />  
+                            </p:column>                    
+                            <p:column>  
+                                <f:facet name="header">  
+                                    First Name  
+                                </f:facet>  
+                                <h:outputText value="#{user.firstName}" />  
+                            </p:column>      
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Last Name  
+                                </f:facet>  
+                                <h:outputText value="#{user.lastName}" />  
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    E-Mail
+                                </f:facet>  
+                                <h:outputText value="#{user.email}" />  
+                            </p:column>                    
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Role  
+                                </f:facet>  
+                                <h:outputText value="#{user.role}" />  
+                            </p:column>    
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Delete  
+                                </f:facet>  
+                                <p:commandLink update=":allUsersForm :usersForm:growl" actionListener="#{usersController.delete(user)}" ><h:graphicImage value="#{resource['images/web-icons/PNG-32:Delete.png']}"/></p:commandLink>  
+                            </p:column>   
+                        </p:dataTable>  
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>

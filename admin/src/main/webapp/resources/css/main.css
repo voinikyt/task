@@ -1,0 +1,70 @@
+body {
+    background: url("../resources/images/macback.png") repeat scroll 0 0 transparent;
+    font-family: geneva,arial,helvetica,sans-serif;
+    font-size: 80%;
+    margin: 0;
+    padding: 0;
+}
+
+#menu {
+	position: absolute;
+	top: 25px;
+	right: 100px;
+	padding: 0;
+	height: 70px;
+	overflow: hidden;
+}
+
+#search{
+	position: absolute;
+	top: 25px;
+	left: 300px;
+	padding: 0;
+	height: 50px;
+	overflow: hidden;
+}
+
+#userPanel{
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	padding: 0;
+	height: 90px;
+	overflow: hidden;
+}
+
+
+#menu ul {
+	margin: 0;
+	list-style: none;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu li a {
+	display: block;
+	float: left;
+	height: 42px;
+	margin-right: 10px;
+	padding: 10px 40px 0 50px;
+	text-decoration: none;
+	font-size: 20px;
+}
+
+#menu li a:hover {
+    border: 1px solid;
+    border-color: #CCCCCC; 
+    border-radius: 5px;
+    box-shadow: 5px 5px 3px #888888;
+}
+
+.users .usersMenuItem a, .task .tasksMenuItem a, .staticData .staticDataMenuItem a {
+    border: 1px solid;
+    border-color: #CCCCCC; 
+    border-radius: 5px;
+    box-shadow: 5px 5px 3px #888888;
+    text-decoration: underline;
+    font-family: Arial,Helvetica,sans-serif;
+}
