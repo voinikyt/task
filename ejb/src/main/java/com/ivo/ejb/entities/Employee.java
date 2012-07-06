@@ -158,4 +158,10 @@ public class Employee implements Serializable {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", pictureURL=" + pictureURL + ", role=" + role + ", userName=" + userName + '}';
+    }
+    
 }

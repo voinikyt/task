@@ -17,12 +17,12 @@ public class CommentedTaskPK implements Serializable {
 	
 	@Basic(optional = false)
     @NotNull
-    @Column(name = "taskid", unique=true, nullable=false)
+    @Column(name = "taskid", nullable=false)
 	private Integer taskId;
 	
     @Basic(optional = false)
     @NotNull
-    @Column(name = "commentid", unique=true, nullable=false)
+    @Column(name = "commentid", nullable=false)
 	private Integer commentId;
 
     public CommentedTaskPK() {

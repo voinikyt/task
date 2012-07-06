@@ -25,9 +25,7 @@ public class TaskPriority implements Serializable {
 	@Id
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "id")
-        @TableGenerator(name = "TASK_PRIORITY_GEN", table = "PRIMARY_KEY_SEQUENCES", pkColumnName = "TABLE_NAME", valueColumnName = "CURRENT_PK_VALUE", pkColumnValue = "TASKPRIORITY")
-        @GeneratedValue(strategy = GenerationType.TABLE, generator = "TASK_PRIORITY_GEN")	
+	@Column(name = "id", updatable = false)                
 	private Integer id;
 
 	@Basic(optional = false)

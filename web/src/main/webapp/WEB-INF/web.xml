@@ -40,18 +40,13 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
-<!-- 	<context-param> -->
-<!-- 		<param-name>primefaces.THEME</param-name> -->
-<!-- 		<param-value>cupertino</param-value> -->
-<!-- 	</context-param> -->
-
 	<login-config>
-		<auth-method>BASE</auth-method>
+		<auth-method>FORM</auth-method>
 		<realm-name>taskDatabaseJDBCRealm</realm-name>
-<!--		<form-login-config>
-			<form-login-page>/view/redirect-to-login.html</form-login-page>
-			<form-error-page>/login</form-error-page>
-		</form-login-config>-->
+                <form-login-config>
+                    <form-login-page>/view/redirect-to-login.html</form-login-page>
+                    <form-error-page>/login</form-error-page>
+                </form-login-config>
 	</login-config>
 	
 	<security-constraint>
@@ -69,10 +64,9 @@
 		<web-resource-collection>
 			<web-resource-name>Employee Pages</web-resource-name>
 			<description />
-			<url-pattern>/employee</url-pattern>
+			<url-pattern>/home</url-pattern>
 		</web-resource-collection>
-		<auth-constraint>
-			<role-name>ADMIN</role-name>					
+		<auth-constraint>			
 			<role-name>EMPLOYEE</role-name>
 		</auth-constraint>
 		 

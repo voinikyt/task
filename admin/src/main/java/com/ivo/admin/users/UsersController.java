@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ivo.web.users;
+package com.ivo.admin.users;
 
 import com.ivo.ejb.entities.Employee;
 import com.ivo.ejb.services.EmployeeFacade;
@@ -58,6 +58,7 @@ public class UsersController implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords should be the same", "Validation Error"));
         } else {
             try {
+                employee.setId(null);
                 employee.setRole("EMPLOYEE");
                 employeeFacade.create(employee);
                 FacesContext context = FacesContext.getCurrentInstance();

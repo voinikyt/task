@@ -8,6 +8,7 @@
     <h:head>
         <title><ui:insert name="title">#{app.helloTitle}</ui:insert></title>
         <h:outputStylesheet name="main.css" library="css" />
+        <h:outputScript library="javascript" name="task.js"/>
         <script type="application/javascript">  
             function draw() {  
                 var canvas = document.getElementById("canvas");  
@@ -40,16 +41,15 @@
                         </h:form>
                     </div>
                     <div id="menu" class="ui-widget">
-                        <h:form>
+                        <h:form >
                             <ul id="main">
-                                <li class="current_page_item"><a href="#" style="background:url('resources/images/web-icons/PNG-48/Modify.png') no-repeat center left;">My Tasks</a></li>                                                        
-                                <li><a href="#" style="background:url('resources/images/web-icons/PNG-48/Line Chart.png') no-repeat center left;">My Progress</a></li>                                                        
-                                <li><a href="#" style="background:url('resources/images/web-icons/PNG-48/Comment.png') no-repeat center left;">My Comments</a></li>                                                        
-                                <li><h:commandLink style="background:url('resources/images/web-icons/PNG-48/Exit.png') no-repeat center left;">Logout</h:commandLink></li>                                                        
+                                <li class="current_page_item"><a href="#" style="background:url('resources/images/web-icons/PNG-48/Modify.png') no-repeat center left;">My Tasks</a></li>                                                                                                                        
+                                <li><h:outputLink value="#{rootPath}/logout" style="background:url('resources/images/web-icons/PNG-48/Exit.png') no-repeat center left;">Logout</h:outputLink></li>                                                        
                             </ul>
                         </h:form>
                     </div>
-                    <div id="userPanel">                        
+                    <div id="userPanel">
+                        <div style="float: left; margin-right: 5px;">#{employeeController.user.firstName} #{employeeController.user.lastName}</div>
                         <h:graphicImage value="resources/images/user.png" width="60px;" height="80px" style="border-radius: 5px"/>
                     </div>
                 </ui:insert>

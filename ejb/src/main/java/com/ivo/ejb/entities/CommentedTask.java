@@ -23,15 +23,12 @@ public class CommentedTask implements Serializable {
 	private CommentedTaskPK commentedTaskPK;
 
     @JoinColumn(name = "commentid", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
 	private Comment comment;	
     
-    @JoinColumn(name = "employeeid", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.EAGER)
-	private Employee employee;
 
     @JoinColumn(name = "taskid", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
 	private Task task;
 
     public CommentedTask() {
@@ -52,14 +49,6 @@ public class CommentedTask implements Serializable {
 
 	public void setComment(Comment comment) {
 		this.comment = comment;
-	}
-	
-	public Employee getEmployee() {
-		return this.employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
 	}
 	
 	public Task getTask() {

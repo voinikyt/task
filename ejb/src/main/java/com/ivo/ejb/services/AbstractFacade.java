@@ -5,6 +5,8 @@
 package com.ivo.ejb.services;
 
 import java.util.List;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 
 /**

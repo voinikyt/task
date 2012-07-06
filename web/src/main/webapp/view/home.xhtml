@@ -1,24 +1,190 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<h:head>	
-</h:head>
-<h:body>
-	<ui:composition template="/view/templates/template.xhtml">
-		<ui:define name="title">Home</ui:define>				
-		
-		<ui:define name="body">			
-		</ui:define>	
-		<ui:define name="category">		
-			<h:link value="Admin" outcome="/view/admin/admin.jsf" />		
-                           <br/>
-                        <h:link value="Home" outcome="/view/home.jsf" />		
-		</ui:define>
-	</ui:composition>	
-</h:body>
+    <h:head>	
+        <h:outputScript library="javascript" name="task.js"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/view/templates/template.xhtml">            
+            <ui:define name="title">Home</ui:define>						
+            <ui:define name="body">			
+                <h:form id="createTaskForm" prependId="false">
+                    <p:panel collapsed="true" id="panel" header="Create New Task" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">               
+                        <p:growl id="growl" showDetail="true" sticky="true" widgetVar="growl"/>
+                        <p:panelGrid columns="2">                        
+                            <h:outputText value="Number"/>
+                            <h:outputText id="taskNumber" value="#{taskController.task.number}" />
+
+                            <p:outputLabel for="taskTitle" value="Title"/>
+                            <p:inputText id="taskTitle" value="#{taskController.task.title}" required="true"/>                        
+
+                            <p:outputLabel for="dateCreated" value="Creation Date"/>
+                            <p:calendar effect="slideDown" id="dateCreated" value="#{taskController.task.dateCreated}" required="true"/>
+
+                            <p:outputLabel for="dateFinished" value="Closed Date"/>
+                            <p:calendar id="dateFinished" effect="slideDown" value="#{taskController.task.dateFinished}"/>                        
+
+                            <h:outputLabel for="estimation" value="Estimation in Days: " />  
+                            <p:spinner id="estimation" value="#{taskController.task.estimation}" required="true" min="0" max="20" /> 
+
+                            <h:outputLabel for="description" value="Description: " />  
+                            <p:inputTextarea  label="Description" value="#{taskController.task.description}" required="true" id="description" rows="10" cols="50" />  
+
+                            <h:outputLabel for="employee" value="Employee: " />                          
+                            <p:selectOneMenu id="employee" value="#{taskController.task.employee.userName}" var="e" effect="fade" required="true">
+                                <f:selectItems value="#{staticData.allEmployees}" var="employee" itemLabel="#{employee.firstName}" itemValue="#{employee.userName}"/>
+                            </p:selectOneMenu>                               
+
+                            <h:outputLabel for="taskPriority" value="Priority: " />                          
+                            <p:selectOneMenu id="taskPriority" value="#{taskController.taskPriority}" var="tp" effect="fade" required="true">                                
+                                <f:selectItem itemLabel="Low" itemValue="LOW"  />  
+                                <f:selectItem itemLabel="Medium" itemValue="MEDIUM" />  
+                                <f:selectItem itemLabel="High" itemValue="HIGH" />  
+                            </p:selectOneMenu>  
+
+                            <h:outputLabel for="taskStatus" value="Status: " />                          
+                            <p:selectOneMenu id="taskStatus" value="#{taskController.taskStatus}" var="tp" effect="fade" required="true">                                
+                                <f:selectItem itemLabel="New" itemValue="NEW"  />  
+                                <f:selectItem itemLabel="Open" itemValue="OPEN" />  
+                                <f:selectItem itemLabel="Closed" itemValue="CLOSED" />  
+                                <f:selectItem itemLabel="Cancelled" itemValue="CANCELLED" />  
+                            </p:selectOneMenu>  
+
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:commandButton oncomplete="handleCreateTaskSubmit(xhr, status, args)" 
+                                                     update=":createTaskForm:growl :createTaskForm:taskNumber" 
+                                                     actionListener="#{taskController.createTask}" 
+                                                     icon="ui-icon-plus" 
+                                                     value="Create"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                        <f:facet name="options">
+                            <p:menu>
+                                <p:submenu label="Settings">
+                                    <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="panel.toggle()"/>
+                                    <p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="panel.close()"/>
+                                </p:submenu>
+                            </p:menu>
+                        </f:facet>
+                    </p:panel>
+                </h:form>
+                <p:panel id="allTasks" header="My Tasks" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="2000" widgetVar="allTasks">               
+                    <h:form id="allTasksForm" prependId="false">
+                        <p:dataTable id="allTasksForUser" var="task" value="#{taskController.allTasksForCurrentUser}" style="width: 500px;" widgetVar="allTasks"  
+                                     rowKey="#{task.number}" selectionMode="single">                              
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Number
+                                </f:facet>  
+                                <h:outputText value="#{task.number}"/>
+                            </p:column>                                                
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Title
+                                </f:facet>  
+                                <h:outputText value="#{task.title}"/>
+                            </p:column>                                                                                      
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Estimation in Days
+                                </f:facet>  
+                                <h:outputText value="#{task.estimation}"/>
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Date Created
+                                </f:facet>  
+                                <h:outputText value="#{task.dateCreated}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                </h:outputText>
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Date Finished
+                                </f:facet>  
+                                <h:outputText value="#{task.dateFinished}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                </h:outputText>
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Priority
+                                </f:facet>  
+                                <h:outputText value="#{task.taskPriority.name}"/>
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Status
+                                </f:facet>  
+                                <h:outputText value="#{task.taskStatus.name}"/>
+                            </p:column>  
+                        </p:dataTable>  
+                    </h:form>
+                </p:panel>
+
+                <ui:repeat value="#{employeeController.allUsers}" var="user" >                        
+                    <p:panel rendered="#{user.userName != employeeController.user.userName}"  header="#{user.userName}'s Tasks" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="2000">               
+                        <p:dataTable id="usersTasks" var="task"  value="#{taskController.getAllTasksForUser(user.userName)}" style="width: 500px;" widgetVar="allTasks"  
+                                      rowKey="#{task.number}" selectionMode="single">                                                      
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Number
+                                </f:facet>  
+                                <h:outputText value="#{task.number}"/>
+                            </p:column>                                                                                               
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Title
+                                </f:facet>  
+                                <h:outputText value="#{task.title}"/>
+                            </p:column>                          
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Estimation in Days
+                                </f:facet>  
+                                <h:outputText value="#{task.estimation}"/>
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Date Created
+                                </f:facet>  
+                                <h:outputText value="#{task.dateCreated}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                </h:outputText>
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Date Finished
+                                </f:facet>  
+                                <h:outputText value="#{task.dateFinished}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                </h:outputText>
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Priority
+                                </f:facet>  
+                                <h:outputText value="#{task.taskPriority.name}"/>
+                            </p:column>  
+                            <p:column>  
+                                <f:facet name="header">  
+                                    Status
+                                </f:facet>  
+                                <h:outputText value="#{task.taskStatus.name}"/>
+                            </p:column>  
+                        </p:dataTable>  
+                    </p:panel>
+                </ui:repeat>
+
+            </ui:define>			
+        </ui:composition>	
+    </h:body>
 </html>
